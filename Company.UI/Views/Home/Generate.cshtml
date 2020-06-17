@@ -1,0 +1,55 @@
+﻿@model RandomNumberGeneratorResponseViewModel
+
+@{
+    ViewData["Title"] = "Lottery Numbers";
+}
+
+<h1>Your lottery numbers are:</h1>
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lotteryNumber in Model.LotteryNumbers)
+        {
+            var rowClass = string.Empty;
+
+            if (lotteryNumber >= 40)
+            {
+                rowClass = "yellow";
+            }
+            else if (lotteryNumber >= 30)
+            {
+                rowClass = "green";
+            }
+            else if (lotteryNumber >= 20)
+            {
+                rowClass = "pink";
+            }
+            else if (lotteryNumber >= 10)
+            {
+                rowClass = "blue";
+            }
+            else
+            {
+                rowClass = "gray";
+            }
+
+            <tr class="@rowClass">
+                <td>@lotteryNumber</td>
+            </tr>
+        }
+    <tfoot>
+        <tr>
+            <td>Total numbers:@Model.LotteryNumbers.Count()</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<form method="post" asp-action="generate">
+    <button type="submit" class="btn btn-primary">Generate more random numbers!</button>
+</form>
